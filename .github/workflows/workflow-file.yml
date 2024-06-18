@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.PASSWORD }}
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: userRegister
         ports:
           - 3306:3306
@@ -30,7 +30,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0  # Shallow clones should be disabled for better relevancy of analysis
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -60,10 +60,14 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests -e
+        run: mvn clean package -DskipTests
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/userRegister
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: root
 
-     
+      - name: SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=regis -Dsonar.projectName='regis' -DskipTests
