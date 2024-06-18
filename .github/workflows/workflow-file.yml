@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: ${{ secrets.PASSWORD }}
           MYSQL_DATABASE: userRegister
         ports:
           - 3306:3306
@@ -63,8 +63,8 @@ jobs:
         run: mvn clean package -DskipTests
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/userRegister
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: root
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
 
       - name: SonarQube Analysis
         env:
