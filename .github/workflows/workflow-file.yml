@@ -66,4 +66,3 @@ jobs:
           SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
 
-
