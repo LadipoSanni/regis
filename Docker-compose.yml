@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+#  app:
+#    image: ladipo/regis:latest
+#    container_name: regis-app
+#    ports:
+#      - "9090:9090"
+  regis-app:
+    image: ladipo/regis-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/userRegister
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: userRegister
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
