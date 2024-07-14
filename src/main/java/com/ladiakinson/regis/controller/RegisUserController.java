@@ -1,7 +1,7 @@
 package com.ladiakinson.regis.controller;
 
 import com.ladiakinson.regis.data.UserRegisterResponse;
-import com.ladiakinson.regis.model.RegisUser;
+import com.ladiakinson.regis.model.UserRegisterRequest;
 import com.ladiakinson.regis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class RegisUserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponse> registerUser(@RequestBody RegisUser users) {
+    public ResponseEntity<UserRegisterResponse> registerUser(@RequestBody UserRegisterRequest users) {
         // Check if the user already exists
         if (userService.userExists(users.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)

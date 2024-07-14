@@ -1,6 +1,6 @@
 package com.ladiakinson.regis.service;
 
-import com.ladiakinson.regis.model.RegisUser;
+import com.ladiakinson.regis.model.UserRegisterRequest;
 import com.ladiakinson.regis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class UserService {
         return userRepository.findByUsername(username).isPresent();
     }
 
-    public RegisUser registerUser(RegisUser users) {
+    public UserRegisterRequest registerUser(UserRegisterRequest users) {
         if (userExists(users.getEmail())) {
             throw new IllegalStateException("User already exists");
         }

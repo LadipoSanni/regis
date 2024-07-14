@@ -5,8 +5,7 @@ FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
 
 # Copy the Maven project files to the container
-COPY src .
-
+COPY . .
 
 # Build the application
 RUN mvn -B clean package -DskipTests -e
@@ -18,13 +17,11 @@ FROM openjdk:17-jdk
 WORKDIR /app
 
 # Copy the built JAR file from the builder stage to the final image
-COPY --from=build /app/target/regis.jar regis.jar
+COPY --from=build /app/target/regis-0.0.1-SNAPSHOT.jar regis.jar
 
 # Make port 9524 available to the world outside this container
-EXPOSE 9524
+EXPOSE 9090
 
-# Set the JAVA_OPTS environment variable to specify memory limit
- ENV JAVA_OPTS="-Xmx128m"
+# Run the JAR file
+ENTRYPOINT ["sh", "-c", "java -Xmx128m -jar regis.jar"]
 
- # Run the JAR file
- ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar regis.jar"]

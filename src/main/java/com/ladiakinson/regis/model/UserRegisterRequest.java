@@ -10,7 +10,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class RegisUser {
+public class UserRegisterRequest {
     String userName;
     String email;
     String password;
