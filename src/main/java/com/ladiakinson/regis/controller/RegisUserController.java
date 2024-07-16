@@ -28,6 +28,17 @@ public class RegisUserController {
                 .body(new UserRegisterResponse("User registered successfully"));
     }
 
+    @GetMapping("/register")
+    public String showRegisterForm() {
+        return "register";
+    }
+
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login";
+    }
+    
     @GetMapping("/login")
     public String login() {
         return "login";
