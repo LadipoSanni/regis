@@ -1,6 +1,6 @@
 name : SonarQube code Analysis
 
-om :
+on :
   push :
     branches :
       - main

@@ -5,7 +5,7 @@ services:
 #    image: ladipo/regis:latest
 #    container_name: regis-app
 #    ports:
-#      - "9090:9090"
+#      - "8080:8080"
   regis-app:
     image: ladipo/regis-app
     build:
@@ -15,8 +15,8 @@ services:
       - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/userRegister
-      - SPRING_DATASOURCE_USERNAME=user
-      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     deploy:
       resources:
         limits:
